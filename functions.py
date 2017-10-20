@@ -1,5 +1,5 @@
 def information_to_dict(api_paramaters):
-    """"Takes the part of the URL after http://webservices.ns.nl/ and returns the information from the API to a dictionairy."""
+    """"Takes the part of the URL after http://webservices.ns.nl/ and returns the information from the API as a dictionairy."""
 
     import requests
     import xmltodict
