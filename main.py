@@ -27,19 +27,51 @@ def listbox_selection(event):
             # Code to display information of the possibility
             print(possibility) # Explanatory print
 
-possibilities_listbox = Listbox()
-possibilities_listbox.pack()
+# create all of the main containers
+top_frame = Frame(root, width=450, height=50, pady=3)
+center = Frame(root, width=250, height=40, padx=3, pady=3)
+
+# layout main containers
+root.grid_rowconfigure(1, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+top_frame.grid(row=0, sticky="ew")
+center.grid(row=1, sticky="nsew")
+
+# create widgets top frame
+invoer_label = Label(top_frame, text='Invoer')
+from_station_label = Label(top_frame, text='Beginstation:')
+via_station_label = Label(top_frame, text='Via (leeglaten if none):')
+to_station_label = Label(top_frame, text='Bestemming:')
+from_station_entry = Entry(top_frame)
+via_station_entry = Entry(top_frame)
+to_station_entry = Entry(top_frame)
+button = Button(master = top_frame, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
+
+# layout widgets of top frame
+invoer_label.grid(row=0, column=0)
+from_station_label.grid(row=1, column=0, padx=(15, 0))
+via_station_label.grid(row=1, column=2)
+to_station_label.grid(row=1, column=4)
+from_station_entry.grid(row=1, column=1, padx=(0, 15))
+via_station_entry.grid(row=1, column=3, padx=(0, 15))
+to_station_entry.grid(row=1, column=5, padx=(0, 15))
+button.grid(row = 1, column = 7, pady=(0, 5))
+
+# create widgets center
+center.grid_rowconfigure(0, weight=1)
+center.grid_columnconfigure(1, weight=1)
+
+ctr_left = Frame(center, bg='blue', width=250, height=190, padx=3, pady=3)
+ctr_mid = Frame(center, bg='green', width=250, height=190, padx=3, pady=3)
+
+ctr_left.grid(row=0, column=0, sticky='nsew')
+ctr_mid.grid(row=0, column=1, sticky='nsew')
+
+# layout widgets ctr_left
+possibilities_listbox = Listbox(ctr_left, height=30)
+possibilities_listbox.grid(row=0, column=0)
 possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
-
-from_station_entry = Entry(root)
-via_station_entry = Entry(root)
-to_station_entry = Entry(root)
-button = Button(master = root, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
-
-from_station_entry.pack()
-via_station_entry.pack()
-to_station_entry.pack()
-button.pack()
 
 root.mainloop()
 
