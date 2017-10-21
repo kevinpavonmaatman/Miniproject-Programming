@@ -1,7 +1,7 @@
 from tkinter import *
 from functions import *
 
-#Initialization of Tkinter root and color configuration
+#Initialization of Tkinter root and color configuration.
 root = Tk()
 root.title('Project Progamming')
 root.geometry('{}x{}'.format(800, 400))
