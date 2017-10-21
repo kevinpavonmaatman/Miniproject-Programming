@@ -9,14 +9,27 @@ root.resizable(width=False, height=False)
 def travel_recommendation():
     """"Uses information_to_dict() to ask for a travel recommendation from the NS API, and inserts the departure times from those recommendations into a listbox."""
 
-    travel_possibilities = information_to_dict('ns-api-treinplanner?fromStation={}&viaStation={}&toStation={}'.format(from_station_entry.get(), via_station_entry.get(), to_station_entry.get()))
+    global travel_possibilities
 
-    for possibility in travel_possibilities['ReisMogelijkheden']['ReisMogelijkheid']:
+    travel_possibilities_dict = information_to_dict('ns-api-treinplanner?fromStation={}&viaStation={}&toStation={}'.format(from_station_entry.get(), via_station_entry.get(), to_station_entry.get()))
+    travel_possibilities = [possibility for possibility in travel_possibilities_dict['ReisMogelijkheden']['ReisMogelijkheid']]
+
+    possibilities_listbox.delete(0, END)
+
+    for possibility in travel_possibilities:
         possibilities_listbox.insert(END, possibility['GeplandeVertrekTijd'][11:16])
 
 
+def listbox_selection(event):
+    selection_index = int(possibilities_listbox.curselection()[0])
+    for possibility in travel_possibilities:
+        if travel_possibilities.index(possibility) == selection_index:
+            # Code to display information of the possibility
+            print(possibility) # Explanatory print
+
 possibilities_listbox = Listbox()
 possibilities_listbox.pack()
+possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
 
 from_station_entry = Entry(root)
 via_station_entry = Entry(root)
