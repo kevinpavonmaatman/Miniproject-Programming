@@ -1,4 +1,3 @@
-from tkinter import *
 from functions import *
 
 def travel_recommendation():
@@ -37,86 +36,31 @@ def listbox_selection(event):
             travel_time_label['text'] = 'Reistijd: {}'.format(possibility['ActueleReisTijd'])
 
             if possibility['AantalOverstappen'] == '0':
-                for slave in ctr_mid_stops.slaves():
-                    slave.destroy()
-
-                part_header = Label(master=ctr_mid_stops, text='Reisdeel', bg=bg_color, fg=fg_color, font=('Helvetica', 14))
-                carrier = possibility['ReisDeel']['Vervoerder']
-                ridenumber = possibility['ReisDeel']['RitNummer']
-                travel_type = possibility['ReisDeel']['VervoerType']
-
-                part_label = Label(master=ctr_mid_stops, text='{} {}    {}'.format(carrier, travel_type, ridenumber), bg=bg_color, fg=fg_color)
-
-                part_header.pack(anchor=W)
-                part_label.pack(anchor=W)
-
-
-                for stop in possibility['ReisDeel']['ReisStop']:
-                    stop_name = stop['Naam']
-                    stop_departure = stop['Tijd'][11:16]
-                    if 'Spoor' in stop:
-                        if stop['Spoor']['@wijziging'] == 'true':
-                            stop_platform = stop['Spoor']['#text']
-                            stop_label = Label(master=ctr_mid_stops,
-                                               text='{}, {}, Spoor {} (wijziging)'.format(stop_name, stop_departure,
-                                                                                          stop_platform), bg=bg_color,
-                                               fg=fg_color)
-                        else:
-                            stop_platform = stop['Spoor']['#text']
-                            stop_label = Label(master=ctr_mid_stops,
-                                               text='{}, {}, Spoor {}'.format(stop_name, stop_departure, stop_platform),
-                                               bg=bg_color, fg=fg_color)
-                    else:
-                        stop_label = Label(master=ctr_mid_stops, text='{}, {}'.format(stop_name, stop_departure),
-                                           bg=bg_color, fg=fg_color)
-                    stop_label.pack(anchor=W)
+                remove_grid_slaves(ctr_mid_stops)
+                too_many.place_forget()
+                part_maker(ctr_mid_stops, bg_color, fg_color, possibility['ReisDeel'], 0, None)
 
             else:
-                for slave in ctr_mid_stops.slaves():
-                    slave.destroy()
+                remove_grid_slaves(ctr_mid_stops)
+
+                if len(possibility['ReisDeel']) > 4:
+                    departure_arrival_time_label['text'] = ''
+                    travel_time_label['text'] = ''
+                    notification_label['text'] = ''
+                    too_many.place_forget()
+                    too_many.place(x=10, y=100)
+                    return
+                else:
+                    too_many.place_forget()
 
                 part = 1
+                column_number = 0
                 for travel_part in possibility['ReisDeel']:
-                    part_frame = Frame(ctr_mid_stops, bg = bg_color)
-                    part_frame.pack(anchor = W)
-
-                    part_header = Label(master = part_frame, text = 'Reisdeel {}'.format(part), bg = bg_color, fg = fg_color, font = ('Helvetica', 14))
-                    carrier = travel_part['Vervoerder']
-                    ridenumber = travel_part['RitNummer']
-                    travel_type = travel_part['VervoerType']
-
-                    part_label = Label(master = part_frame, text = '{} {}    {}'.format(carrier, travel_type, ridenumber), bg = bg_color, fg = fg_color)
-
-                    part_header.pack(anchor = W)
-                    part_label.pack(anchor = W)
-
-                    for stop in travel_part['ReisStop']:
-                        stop_name = stop['Naam']
-                        stop_departure = stop['Tijd'][11:16]
-                        if 'Spoor' in stop:
-                            if stop['Spoor']['@wijziging'] == 'true':
-                                stop_platform = stop['Spoor']['#text']
-                                stop_label = Label(master=part_frame,text='{}, {}, Spoor {} (wijziging)'.format(stop_name, stop_departure, stop_platform), bg=bg_color, fg=fg_color)
-                            else:
-                                stop_platform = stop['Spoor']['#text']
-                                stop_label = Label(master=part_frame, text='{}, {}, Spoor {}'.format(stop_name, stop_departure, stop_platform), bg=bg_color, fg=fg_color)
-                        else:
-                            stop_label = Label(master=part_frame, text='{}, {}'.format(stop_name, stop_departure), bg=bg_color, fg=fg_color)
-                        stop_label.pack(anchor = W)
-                    print(ctr_mid_stops.slaves())
-                    print(ctr_mid_stops.winfo_width(), part_frame.winfo_height())
+                    part_maker(ctr_mid_stops, bg_color, fg_color, travel_part, column_number, part)
+                    column_number += 1
                     part += 1
 
-            if 'Melding' in possibility:
-                if possibility['Melding']['Ernstig'] == 'true':
-                    notification_label['text'] = possibility['Melding']['Text']
-                    notification_label['fg'] = 'red'
-                else:
-                    notification_label['text'] = possibility['Melding']['Text']
-                    notification_label['fg'] = fg_color
-
-
-
+            notification_label_text(possibility, notification_label, fg_color)
 
 bg_color = "#FFCC20"
 fg_color = "#000066"
@@ -172,7 +116,7 @@ ctr_mid_stops = Frame(ctr_mid, bg = bg_color)
 departure_arrival_time_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
 travel_time_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
 notification_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
-# travel_type = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
+too_many = Label(ctr_mid, text = 'Helaas worden meer dan 4 reisdelen niet ondersteund door deze applicatie.', bg = bg_color, fg = fg_color, font = ('Helvetica', 18))
 
 # layout widgets ctr_left
 possibilities_listbox = Listbox(ctr_left, height = 30)
@@ -183,8 +127,7 @@ possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
 ctr_mid_stops.pack(anchor = W, padx = (10, 0), pady = (100, 0))
 departure_arrival_time_label.place(x = 10, y = 10)
 travel_time_label.place(x = 10, y = 30)
-notification_label.place(x = 500, y = 50)
-# travel_type.place(x = 700, y = 30)
+notification_label.place(x = 500, y = 10)
 
 root.mainloop()
 
