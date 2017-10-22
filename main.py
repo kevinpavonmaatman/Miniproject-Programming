@@ -14,7 +14,6 @@ def travel_recommendation():
     for possibility in travel_possibilities:
         possibilities_listbox.insert(END, possibility['ActueleVertrekTijd'][11:16])
 
-
 def listbox_selection(event):
     """"Takes the event from the possibilities listbox and then replaces the information in the (empty) widgets in ctr_mid with the currently selected possibility's travel information."""
     try:
@@ -36,9 +35,88 @@ def listbox_selection(event):
 
             departure_arrival_time_label['text'] = '{} <> {}'.format(departure_time, arrival_time)
             travel_time_label['text'] = 'Reistijd: {}'.format(possibility['ActueleReisTijd'])
-            platform_label['text'] = 'Spoor {}'.format(possibility['ReisDeel']['ReisStop'][0]['Spoor']['#text'])
-            ridenumber_label['text'] = 'Ritnummer {}'.format(possibility['ReisDeel']['RitNummer'])
-            # notification_label['text'] = ''.format()
+
+            if possibility['AantalOverstappen'] == '0':
+                for slave in ctr_mid_stops.slaves():
+                    slave.destroy()
+
+                part_header = Label(master=ctr_mid_stops, text='Reisdeel', bg=bg_color, fg=fg_color, font=('Helvetica', 14))
+                carrier = possibility['ReisDeel']['Vervoerder']
+                ridenumber = possibility['ReisDeel']['RitNummer']
+                travel_type = possibility['ReisDeel']['VervoerType']
+
+                part_label = Label(master=ctr_mid_stops, text='{} {}    {}'.format(carrier, travel_type, ridenumber), bg=bg_color, fg=fg_color)
+
+                part_header.pack(anchor=W)
+                part_label.pack(anchor=W)
+
+
+                for stop in possibility['ReisDeel']['ReisStop']:
+                    stop_name = stop['Naam']
+                    stop_departure = stop['Tijd'][11:16]
+                    if 'Spoor' in stop:
+                        if stop['Spoor']['@wijziging'] == 'true':
+                            stop_platform = stop['Spoor']['#text']
+                            stop_label = Label(master=ctr_mid_stops,
+                                               text='{}, {}, Spoor {} (wijziging)'.format(stop_name, stop_departure,
+                                                                                          stop_platform), bg=bg_color,
+                                               fg=fg_color)
+                        else:
+                            stop_platform = stop['Spoor']['#text']
+                            stop_label = Label(master=ctr_mid_stops,
+                                               text='{}, {}, Spoor {}'.format(stop_name, stop_departure, stop_platform),
+                                               bg=bg_color, fg=fg_color)
+                    else:
+                        stop_label = Label(master=ctr_mid_stops, text='{}, {}'.format(stop_name, stop_departure),
+                                           bg=bg_color, fg=fg_color)
+                    stop_label.pack(anchor=W)
+
+            else:
+                for slave in ctr_mid_stops.slaves():
+                    slave.destroy()
+
+                part = 1
+                for travel_part in possibility['ReisDeel']:
+                    part_frame = Frame(ctr_mid_stops, bg = bg_color)
+                    part_frame.pack(anchor = W)
+
+                    part_header = Label(master = part_frame, text = 'Reisdeel {}'.format(part), bg = bg_color, fg = fg_color, font = ('Helvetica', 14))
+                    carrier = travel_part['Vervoerder']
+                    ridenumber = travel_part['RitNummer']
+                    travel_type = travel_part['VervoerType']
+
+                    part_label = Label(master = part_frame, text = '{} {}    {}'.format(carrier, travel_type, ridenumber), bg = bg_color, fg = fg_color)
+
+                    part_header.pack(anchor = W)
+                    part_label.pack(anchor = W)
+
+                    for stop in travel_part['ReisStop']:
+                        stop_name = stop['Naam']
+                        stop_departure = stop['Tijd'][11:16]
+                        if 'Spoor' in stop:
+                            if stop['Spoor']['@wijziging'] == 'true':
+                                stop_platform = stop['Spoor']['#text']
+                                stop_label = Label(master=part_frame,text='{}, {}, Spoor {} (wijziging)'.format(stop_name, stop_departure, stop_platform), bg=bg_color, fg=fg_color)
+                            else:
+                                stop_platform = stop['Spoor']['#text']
+                                stop_label = Label(master=part_frame, text='{}, {}, Spoor {}'.format(stop_name, stop_departure, stop_platform), bg=bg_color, fg=fg_color)
+                        else:
+                            stop_label = Label(master=part_frame, text='{}, {}'.format(stop_name, stop_departure), bg=bg_color, fg=fg_color)
+                        stop_label.pack(anchor = W)
+                    print(ctr_mid_stops.slaves())
+                    print(ctr_mid_stops.winfo_width(), part_frame.winfo_height())
+                    part += 1
+
+            if 'Melding' in possibility:
+                if possibility['Melding']['Ernstig'] == 'true':
+                    notification_label['text'] = possibility['Melding']['Text']
+                    notification_label['fg'] = 'red'
+                else:
+                    notification_label['text'] = possibility['Melding']['Text']
+                    notification_label['fg'] = fg_color
+
+
+
 
 bg_color = "#FFCC20"
 fg_color = "#000066"
@@ -90,11 +168,11 @@ ctr_left.grid(row = 0, column = 0, sticky = 'nsew')
 ctr_mid.grid(row = 0, column = 1, sticky = 'nsew')
 
 # layout widgets ctr_mid
+ctr_mid_stops = Frame(ctr_mid, bg = bg_color)
 departure_arrival_time_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
 travel_time_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
-platform_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
-ridenumber_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
-# notification_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
+notification_label = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
+# travel_type = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color)
 
 # layout widgets ctr_left
 possibilities_listbox = Listbox(ctr_left, height = 30)
@@ -102,10 +180,11 @@ possibilities_listbox.grid(row = 0, column = 0)
 possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
 
 # layout widgets ctr_mid
+ctr_mid_stops.pack(anchor = W, padx = (10, 0), pady = (100, 0))
 departure_arrival_time_label.place(x = 10, y = 10)
 travel_time_label.place(x = 10, y = 30)
-platform_label.place(x = 500, y = 10)
-ridenumber_label.place(x = 500, y = 30)
+notification_label.place(x = 500, y = 50)
+# travel_type.place(x = 700, y = 30)
 
 root.mainloop()
 
