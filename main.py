@@ -71,8 +71,8 @@ root.geometry('{}x{}'.format(1280, 720))
 root.resizable(width = False, height = False)
 
 # create all of the main containers
-top_frame = Frame(root, pady = 3)
-center = Frame(root, padx = 3, pady = 3)
+top_frame = Frame(root, pady = 3, bg=bg_color)
+center = Frame(root, padx = 3, pady = 3, bg=fg_color)
 
 # layout main containers
 root.grid_rowconfigure(1, weight = 1)
@@ -81,18 +81,36 @@ root.grid_columnconfigure(0, weight = 1)
 top_frame.grid(row = 0, sticky = "ew")
 center.grid(row = 1, sticky = "nsew")
 
-# create widgets top frame
-invoer_label = Label(top_frame, text='Invoer')
-from_station_label = Label(top_frame, text='Beginstation:')
-via_station_label = Label(top_frame, text='Via (leeglaten if none):')
-to_station_label = Label(top_frame, text='Bestemming:')
-from_station_entry = Entry(top_frame)
-via_station_entry = Entry(top_frame)
-to_station_entry = Entry(top_frame)
+# create widgets top part
+invoer_label = Label(top_frame, text='Vul jouw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
+img = PhotoImage(file="ns_small.png")
+foto_top = Label(root,image=img, bg=bg_color)
+foto_top.image = (img)
+smalltop_text = Label(root, text='NS Reisadvies Interface')
+
+#Position of NS Pictures, Text and Copyright
+foto_bottom = Label(root,image=img, bg=bg_color, width=160, height=120)
+foto_bottom.image = (img)
+foto_top.place(x=1050,y=10)
+smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
+smalltop_text.place(x=1000,y=54)
+foto_bottom.place(x=3,y=590)
+copyright_text = Label(root, text='Copyright © 2017. All rights reserved')
+copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=1, font=("Helvetica", 8, "bold"))
+copyright_text.place(x=500,y=690)
+
+# foto.grid(row=0, column=8, padx=50)
+from_station_label = Label(top_frame, text='Beginstation:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+via_station_label = Label(top_frame, text='Via (leeglaten if none):', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+to_station_label = Label(top_frame, text='Bestemming:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+from_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+via_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+to_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 button = Button(master = top_frame, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
+button.configure(bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
 
 # layout widgets of top frame
-invoer_label.grid(row = 0, column = 0)
+invoer_label.grid(row = 0, column = 3)
 from_station_label.grid(row = 1, column = 0, padx = (15, 0))
 via_station_label.grid(row = 1, column = 2)
 to_station_label.grid(row = 1, column = 4)
@@ -105,7 +123,7 @@ button.grid(row = 1, column = 7, pady = (0, 5))
 center.grid_rowconfigure(0, weight=1)
 center.grid_columnconfigure(1, weight=1)
 
-ctr_left = Frame(center, bg = 'blue', padx = 3, pady = 3)
+ctr_left = Frame(center, bg = fg_color, padx = 3, pady = 3)
 ctr_mid = Frame(center, bg = bg_color, padx = 3, pady = 3)
 
 ctr_left.grid(row = 0, column = 0, sticky = 'nsew')
@@ -122,6 +140,7 @@ too_many = Label(ctr_mid, text = 'Helaas worden meer dan 4 reisdelen niet onders
 possibilities_listbox = Listbox(ctr_left, height = 30)
 possibilities_listbox.grid(row = 0, column = 0)
 possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
+possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10)
 
 # layout widgets ctr_mid
 ctr_mid_stops.pack(anchor = W, padx = (10, 0), pady = (100, 0))
