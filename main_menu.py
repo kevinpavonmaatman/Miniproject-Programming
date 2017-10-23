@@ -157,7 +157,7 @@ def load_reisinfomenu(event):
     invoer_label = Label(top_frame, text='Vul uw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
     input_label = Label(top_frame, text='Station:',fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
     input_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
-    button = Button(master = top_frame, text = 'Toon tijden', command=station_departure_information, bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
+    button = Button(master = top_frame, text = 'Toon tijden', command=station_departure_information, activeforeground=bg_color, activebackground=fg_color, bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
 
     # layout widgets of top frame
     invoer_label.grid(row = 0, column = 1)

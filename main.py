@@ -142,7 +142,7 @@ month_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("H
 year_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
 
 button = Button(master = top_frame, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
-button.configure(bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
+button.configure(bg=fg_color, fg=bg_color, activeforeground=bg_color, activebackground=fg_color, font=("Helvetica", 8, "bold"))
 
 # layout widgets of top frame
 from_station_label.grid(row = 1, column = 0, padx = (15, 0))
