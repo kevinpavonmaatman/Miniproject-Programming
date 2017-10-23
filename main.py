@@ -82,22 +82,20 @@ top_frame.grid(row = 0, sticky = "ew")
 center.grid(row = 1, sticky = "nsew")
 
 #Position of NS Pictures, Text and Copyright
-invoer_label = Label(top_frame, text='Vul uw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
+#invoer_label = Label(top_frame, text='Vul uw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
 img = PhotoImage(file="ns_small.png")
 foto_top = Label(root,image=img, bg=bg_color)
 foto_top.image = (img)
-foto_top.place(x=1090,y=30)
+foto_top.place(x=1090,y=5)
 smalltop_text = Label(root, text='NS Reisadvies Interface')
 smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
-smalltop_text.place(x=1040,y=74)
-foto_bottom = Label(root,image=img, bg=bg_color, width=160, height=80)
+smalltop_text.place(x=1040,y=54)
+foto_bottom = Label(root,image=img, bg=bg_color, width=160, height=115)
 foto_bottom.image = (img)
-foto_bottom.place(x=4,y=632)
+foto_bottom.place(x=4,y=597)
 copyright_text = Label(root, text='Copyright © 2017. All rights reserved')
 copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=1, font=("Helvetica", 8, "bold"))
 copyright_text.place(x=500,y=690)
-
-#NEW
 
 # foto.grid(row=0, column=8, padx=50)
 from_station_label = Label(top_frame, text='Beginstation:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
@@ -107,35 +105,41 @@ from_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica
 via_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 to_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 
+time_date_label= Label(top_frame, text='Tijd:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 day_date_label = Label(top_frame, text='Dag:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 month_date_label = Label(top_frame, text='Maand:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 year_date_label = Label(top_frame, text='Jaar:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
-day_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
-month_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
-year_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+time_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
+day_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
+month_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
+year_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
 
 button = Button(master = top_frame, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
 button.configure(bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
 
 # layout widgets of top frame
-invoer_label.grid(row = 0, column = 3)
 from_station_label.grid(row = 1, column = 0, padx = (15, 0))
 via_station_label.grid(row = 2, column = 0)
 to_station_label.grid(row = 3, column = 0)
 from_station_entry.grid(row = 1, column = 1, padx = (0, 15))
 via_station_entry.grid(row = 2, column = 1, padx = (0, 15))
 to_station_entry.grid(row = 3, column = 1, padx = (0, 15))
-button.grid(row = 2, column = 6, padx = (20,0))
+button.grid(row = 2, column = 7, padx = (20,0))
 
-day_date_label.grid(row = 1, column=2)
-month_date_label.grid(row = 1, column=3)
-year_date_label.grid(row = 1, column=4)
-day_date_entry.grid(row = 2, column=2)
-month_date_entry.grid(row = 2, column=3)
-year_date_entry.grid(row = 2, column=4)
+#Labels
+time_date_label.grid(row = 1, column = 2)
+day_date_label.grid(row = 1, column=3)
+month_date_label.grid(row = 1, column=4)
+year_date_label.grid(row = 1, column=5)
+
+#Entrys
+time_date_entry.grid(row = 2, column=2)
+day_date_entry.grid(row = 2, column=3, padx = (5, 0))
+month_date_entry.grid(row = 2, column=4, padx = (5, 0))
+year_date_entry.grid(row = 2, column=5, padx = (5, 0))
 
 times_listbox = Listbox(top_frame, height = 2)
-times_listbox.grid(row = 2, column = 5, padx = (30,0))
+times_listbox.grid(row = 2, column = 6, padx = (30,0))
 times_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=2)
 
 # create widgets center
