@@ -16,7 +16,7 @@ def travel_recommendation():
     possibilities_listbox.delete(0, END)
 
     for possibility in travel_possibilities:
-        possibilities_listbox.insert(END, possibility['ActueleVertrekTijd'][11:16])
+        possibilities_listbox.insert(END, '{:<20}{}-{}-{}'.format(possibility['ActueleVertrekTijd'][11:16], possibility['ActueleVertrekTijd'][8:10], possibility['ActueleVertrekTijd'][5:7], possibility['ActueleVertrekTijd'][0:4]))
 
 def times_listbox_selection(event):
     global is_departure
