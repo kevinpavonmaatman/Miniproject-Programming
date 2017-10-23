@@ -25,6 +25,13 @@ def listbox_selection(event):
     except IndexError:
         return
 
+    possibilities_listbox.itemconfig(selection_index, bg=fg_color, fg=bg_color)
+
+    for item_value in possibilities_listbox.get(0, END):
+        item_index = possibilities_listbox.get(0, END).index(item_value)
+        if item_index != selection_index:
+            possibilities_listbox.itemconfig(item_index, bg=bg_color, fg=fg_color)
+
     for departure in departures:
         if departures.index(departure) == selection_index:
             if 'VertrekVertraging' in departure:
