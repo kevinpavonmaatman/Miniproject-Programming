@@ -1,4 +1,3 @@
-from tkinter import *
 from functions import *
 from tkinter.messagebox import showerror
 
@@ -189,10 +188,10 @@ def load_reisinfomenu(event):
     comments = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color, font=("Helvetica", 9, "bold"))
 
     # layout widgets ctr_left
-    possibilities_listbox = Listbox(ctr_left, height = 33, width = 40, font = ('Consolas', 9))
+    possibilities_listbox = Listbox(ctr_left, height = 33, width = 40)
     possibilities_listbox.grid(row = 0, column = 0)
     possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
-    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10)
+    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10)
 
     # layout widgets ctr_mid
     departure_time.place(x = 10, y = 10)
@@ -208,11 +207,11 @@ def load_reisinfomenu(event):
     #Position of NS Pictures, Text and Copyright
     img = PhotoImage(file="ns_small.png")
     foto_top = Label(root,image=img, bg=bg_color)
-    foto_bottom = Label(root,image=img, bg=bg_color, width=300, height=78)
+    foto_bottom = Label(root,image=img, bg=bg_color, width=300, height=113)
     foto_top.image = (img)
     foto_top.place(x=700,y=10)
     foto_bottom.image = (img)
-    foto_bottom.place(x=3,y=635)
+    foto_bottom.place(x=4,y=600)
     smalltop_text = Label(root, text='NS Stationsinformatie Interface')
     smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
     smalltop_text.place(x=650,y=54)
