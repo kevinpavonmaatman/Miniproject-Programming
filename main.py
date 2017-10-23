@@ -169,7 +169,7 @@ times(time_date_entry, day_date_entry, month_date_entry, year_date_entry)
 
 times_listbox = Listbox(top_frame, height = 2)
 times_listbox.grid(row = 2, column = 6, padx = (30,0))
-times_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=2)
+times_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=2, selectbackground=fg_color, activestyle="none")
 times_listbox.insert(END, 'Vertrek')
 times_listbox.insert(END, 'Aankomst')
 times_listbox.bind('<<ListboxSelect>>', times_listbox_selection)
@@ -197,7 +197,7 @@ too_many = Label(ctr_mid, text = 'Helaas worden meer dan 4 reisdelen niet onders
 possibilities_listbox = Listbox(ctr_left, height = 30)
 possibilities_listbox.grid(row = 0, column = 0)
 possibilities_listbox.bind('<<ListboxSelect>>', possibilities_listbox_selection)
-possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10)
+possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10, selectbackground=fg_color, activestyle="none")
 
 # layout widgets ctr_mid
 ctr_mid_stops.pack(anchor = W, padx = (10, 0), pady = (100, 0))

@@ -142,7 +142,6 @@ def load_reisinfomenu(event):
     footer_frame.destroy()
 
     root.geometry('{}x{}'.format(1280, 720))
-    root.resizable(width = False, height = False)
     # create all of the main containers
     top_frame = Frame(root, pady = 3,bg=bg_color)
     center = Frame(root, padx = 3, pady = 3, bg=fg_color)
@@ -191,7 +190,7 @@ def load_reisinfomenu(event):
     possibilities_listbox = Listbox(ctr_left, height = 33, width = 40)
     possibilities_listbox.grid(row = 0, column = 0)
     possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
-    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10)
+    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10, selectbackground=fg_color, activestyle="none")
 
     # layout widgets ctr_mid
     departure_time.place(x = 10, y = 10)
