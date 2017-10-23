@@ -190,7 +190,7 @@ def load_reisinfomenu(event):
     possibilities_listbox = Listbox(ctr_left, height = 33, width = 40)
     possibilities_listbox.grid(row = 0, column = 0)
     possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
-    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10, selectbackground=fg_color, activestyle="none")
+    possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10, highlightcolor=bg_color, selectforeground=bg_color, selectbackground=fg_color, activestyle="none")
 
     # layout widgets ctr_mid
     departure_time.place(x = 10, y = 10)
