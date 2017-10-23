@@ -80,7 +80,7 @@ top_frame.grid(row = 0, sticky = "ew")
 center.grid(row = 1, sticky = "nsew")
 
 # create widgets top frame
-invoer_label = Label(top_frame, text='Vul jouw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
+invoer_label = Label(top_frame, text='Vul uw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
 input_label = Label(top_frame, text='Station:',fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 input_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 button = Button(master = top_frame, text = 'Toon tijden', command=station_departure_information, bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
@@ -113,10 +113,10 @@ travel_tip = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color, fo
 comments = Label(master = ctr_mid, text = '', bg = bg_color, fg = fg_color, font=("Helvetica", 9, "bold"))
 
 # layout widgets ctr_left
-possibilities_listbox = Listbox(ctr_left, height = 33, width = 40)
+possibilities_listbox = Listbox(ctr_left, height = 33, width = 40, font = ('Consolas', 9))
 possibilities_listbox.grid(row = 0, column = 0)
 possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
-possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Consolas", 9, "bold"),bd=10)
+possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10)
 
 # layout widgets ctr_mid
 departure_time.place(x = 10, y = 10)
@@ -132,21 +132,16 @@ comments.place(x = 10, y = 170)
 #Position of NS Pictures, Text and Copyright
 img = PhotoImage(file="ns_small.png")
 foto_top = Label(root,image=img, bg=bg_color)
-foto_bottom = Label(root,image=img, bg=bg_color, width=300, height=110)
+foto_bottom = Label(root,image=img, bg=bg_color, width=300, height=78)
 foto_top.image = (img)
+foto_top.place(x=700,y=10)
 foto_bottom.image = (img)
+foto_bottom.place(x=3,y=635)
 smalltop_text = Label(root, text='NS Stationsinformatie Interface')
 smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
+smalltop_text.place(x=650,y=54)
 copyright_text = Label(root, text='Copyright © 2017. All rights reserved')
 copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=1, font=("Helvetica", 8, "bold"))
-
-foto_top.place(x=700,y=10)
-foto_bottom.place(x=3,y=600)
-copyright_text.place(x=600,y=690)
-smalltop_text.place(x=650,y=54)
-
-
-
-
+copyright_text.place(x=500,y=690)
 
 root.mainloop()
