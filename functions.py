@@ -74,3 +74,11 @@ def part_maker(parent, bg_color, fg_color, travel_part, column_number, part):
         else:
             stop_label = Label(master=part_frame, text='{}, {}'.format(stop_name, stop_departure), bg=bg_color, fg=fg_color)
         stop_label.pack(anchor=W)
+
+def times(time, day, month, year):
+    import datetime as dt
+    current_time = dt.datetime.today()
+    time.insert(0, current_time.strftime('%H:%M'))
+    day.insert(0, current_time.strftime('%d'))
+    month.insert(0, current_time.strftime('%m'))
+    year.insert(0, current_time.strftime('%Y'))

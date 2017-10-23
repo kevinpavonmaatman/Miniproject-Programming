@@ -1,19 +1,46 @@
 from functions import *
+from tkinter.messagebox import showerror
 
 def travel_recommendation():
     """"Uses information_to_dict() to ask for a travel recommendation from the NS API, and inserts the departure times from those recommendations into a listbox."""
 
     global travel_possibilities
 
-    travel_possibilities_dict = information_to_dict('ns-api-treinplanner?fromStation={}&viaStation={}&toStation={}'.format(from_station_entry.get(), via_station_entry.get(), to_station_entry.get()))
-    travel_possibilities = [possibility for possibility in travel_possibilities_dict['ReisMogelijkheden']['ReisMogelijkheid']]
+    current_time = '{}-{}-{}T{}'.format(year_date_entry.get(), month_date_entry.get(),  day_date_entry.get(), time_date_entry.get())
+    try:
+        travel_possibilities_dict = information_to_dict('ns-api-treinplanner?fromStation={}&viaStation={}&toStation={}&dateTime={}&Departure={}'.format(from_station_entry.get(), via_station_entry.get(), to_station_entry.get(), current_time, is_departure))
+        travel_possibilities = [possibility for possibility in travel_possibilities_dict['ReisMogelijkheden']['ReisMogelijkheid']]
+    except:
+        showerror(title='Foutmelding', message='Station bestaat niet of onjuiste tijd.')
 
     possibilities_listbox.delete(0, END)
 
     for possibility in travel_possibilities:
         possibilities_listbox.insert(END, possibility['ActueleVertrekTijd'][11:16])
 
-def listbox_selection(event):
+def times_listbox_selection(event):
+    global is_departure
+
+    try:
+        selection_index = int(times_listbox.curselection()[0])
+    except:
+        return
+
+    selection_value = times_listbox.get(selection_index)
+    if selection_value == 'Vertrek':
+        is_departure = 'true'
+    else:
+        is_departure = 'false'
+
+    if selection_index == 0:
+        times_listbox.itemconfig(selection_index, bg=fg_color, fg=bg_color)
+        times_listbox.itemconfig(1, bg=bg_color, fg=fg_color)
+    else:
+        times_listbox.itemconfig(selection_index, bg=fg_color, fg=bg_color)
+        times_listbox.itemconfig(0, bg=bg_color, fg=fg_color)
+
+
+def possibilities_listbox_selection(event):
     """"Takes the event from the possibilities listbox and then replaces the information in the (empty) widgets in ctr_mid with the currently selected possibility's travel information."""
     try:
         selection_index = int(possibilities_listbox.curselection()[0])
@@ -99,7 +126,7 @@ copyright_text.place(x=500,y=690)
 
 # foto.grid(row=0, column=8, padx=50)
 from_station_label = Label(top_frame, text='Beginstation:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
-via_station_label = Label(top_frame, text='Via (leeglaten if none):', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
+via_station_label = Label(top_frame, text='Via (optioneel):', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 to_station_label = Label(top_frame, text='Bestemming:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 from_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
 via_station_entry = Entry(top_frame, fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
@@ -138,9 +165,16 @@ day_date_entry.grid(row = 2, column=3, padx = (5, 0))
 month_date_entry.grid(row = 2, column=4, padx = (5, 0))
 year_date_entry.grid(row = 2, column=5, padx = (5, 0))
 
+times(time_date_entry, day_date_entry, month_date_entry, year_date_entry)
+
 times_listbox = Listbox(top_frame, height = 2)
 times_listbox.grid(row = 2, column = 6, padx = (30,0))
 times_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=2)
+times_listbox.insert(END, 'Vertrek')
+times_listbox.insert(END, 'Aankomst')
+times_listbox.bind('<<ListboxSelect>>', times_listbox_selection)
+times_listbox.select_set(0)
+times_listbox_selection(None)
 
 # create widgets center
 center.grid_rowconfigure(0, weight=1)
@@ -162,7 +196,7 @@ too_many = Label(ctr_mid, text = 'Helaas worden meer dan 4 reisdelen niet onders
 # layout widgets ctr_left
 possibilities_listbox = Listbox(ctr_left, height = 30)
 possibilities_listbox.grid(row = 0, column = 0)
-possibilities_listbox.bind('<<ListboxSelect>>', listbox_selection)
+possibilities_listbox.bind('<<ListboxSelect>>', possibilities_listbox_selection)
 possibilities_listbox.configure(fg=fg_color, bg=bg_color, font=("Helvetica", 9, "bold"),bd=10)
 
 # layout widgets ctr_mid
