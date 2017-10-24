@@ -35,9 +35,9 @@ def listbox_selection(event):
     for departure in departures:
         if departures.index(departure) == selection_index:
             if 'VertrekVertraging' in departure:
-                departure_time['text'] = '{}: {} {}'.format(('Vetrektijd'), departure['VertrekTijd'][11:16], departure['VertrekVertragingTekst'])
+                departure_time['text'] = '{}: {} {}'.format(('Vertrektijd'), departure['VertrekTijd'][11:16], departure['VertrekVertragingTekst'])
             else:
-                departure_time['text'] = ('Vetrektijd:',departure['VertrekTijd'][11:16])
+                departure_time['text'] = ('Vertrektijd:',departure['VertrekTijd'][11:16])
 
             ridenumber['text'] = ('{}: {}'.format(('Ritnummer'), departure['RitNummer']))
             destination['text'] = ('{}: {}'.format('Eindbestemming',departure['EindBestemming']))
@@ -468,7 +468,7 @@ def load_reisadviesmenu(event):
 
 #Loading of initial screen.
 root = Tk()
-root.title('Project Progamming')
+root.title('Project Programming')
 root.geometry('{}x{}'.format(800, 400))
 root.resizable(width=False, height=False)
 bg_color = "#FFCC20"
