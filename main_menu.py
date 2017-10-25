@@ -17,10 +17,10 @@ def load_mainmenu():
     footer_frame.grid(row=2)
 
     # Definition of widgets top_frame
-    title_label = Label(top_frame, text='Main Menu', bg=bg_color, fg=fg_color, width = 40, height=1, font=("Helvetica", 25, "bold"))
+    title_label = Label(top_frame, text='Main Menu', bg=bg_color, fg=fg_color, width = 40, height=1, font=('Helvetica', 25, 'bold'))
     photo = Label(top_frame,image=large_image, bg=bg_color)
     photo.image = large_image
-    welcome_label = Label(top_frame, text='Welkom bij de NS Reisapplicatie \n Maak een keuze door te klikken op één van de onderstaande knoppen', bg=bg_color, fg=fg_color, font=("Helvetica", 10, "bold"))
+    welcome_label = Label(top_frame, text='Welkom bij de NS Reisapplicatie \n Maak een keuze door te klikken op één van de onderstaande knoppen', bg=bg_color, fg=fg_color, font=font_10)
 
     # Layout widgets of top_frame
     title_label.grid(row=0, pady=50)
@@ -215,7 +215,7 @@ def load_reisadviesmenu():
         possibilities_listbox.delete(0, END)
 
         for possibility in travel_possibilities:
-            possibilities_listbox.insert(END, '{:<20}{}-{}-{}'.format(possibility['ActueleVertrekTijd'][11:16], possibility['ActueleVertrekTijd'][8:10], possibility['ActueleVertrekTijd'][5:7], possibility['ActueleVertrekTijd'][0:4]))
+            possibilities_listbox.insert(END, '{:<11}{:<8}{}-{}-{}'.format(possibility['ActueleVertrekTijd'][11:16], possibility['AantalOverstappen'], possibility['ActueleVertrekTijd'][8:10], possibility['ActueleVertrekTijd'][5:7], possibility['ActueleVertrekTijd'][0:4]))
 
     def times_listbox_selection(event):
         """"When triggered, saves the selected option of times_listbox."""
@@ -411,8 +411,8 @@ def load_reisadviesmenu():
     backtomenu_button.place(x=600,y=650)
 
 # Declaration of initial objects
-bg_color = "#FFCC20"
-fg_color = "#000066"
+bg_color = '#FFCC20'
+fg_color = '#000066'
 
 # Declaration of fonts
 font_8 = ('Helvetica', 8, 'bold')
@@ -430,8 +430,8 @@ root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
 # Declaration of image objects
-small_image = PhotoImage(file="ns_small.png")
-large_image = PhotoImage(file="ns.png")
+small_image = PhotoImage(file='ns_small.png')
+large_image = PhotoImage(file='ns.png')
 
 load_mainmenu()
 
