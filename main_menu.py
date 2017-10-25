@@ -245,9 +245,6 @@ def load_reisinfomenu():
     center = Frame(root, padx = 3, pady = 3, bg=fg_color)
 
     # layout main containers
-    root.grid_rowconfigure(1, weight = 1)
-    root.grid_columnconfigure(0, weight = 1)
-
     top_frame.grid(row = 0, sticky = "ew")
     center.grid(row = 1, sticky = "nsew")
 
@@ -355,9 +352,6 @@ def load_reisadviesmenu():
     center = Frame(root, padx = 3, pady = 3, bg=fg_color)
 
     # layout main containers
-    root.grid_rowconfigure(1, weight = 1)
-    root.grid_columnconfigure(0, weight = 1)
-
     top_frame.grid(row = 0, sticky = "ew")
     center.grid(row = 1, sticky = "nsew")
 
@@ -394,7 +388,7 @@ def load_reisadviesmenu():
     month_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
     year_date_entry = Entry(top_frame, fg=fg_color, bg=bg_color, width=10, font=("Helvetica", 8, "bold"))
 
-    button = Button(master = top_frame, text = 'Geef vertrekmogelijkheden', command=travel_recommendation)
+    button = Button(master = top_frame, text = 'Geef reismogelijkheden', command=travel_recommendation)
     button.configure(bg=fg_color, fg=bg_color, activeforeground=bg_color, activebackground=fg_color, font=("Helvetica", 8, "bold"))
 
     # layout widgets of top frame
@@ -462,18 +456,18 @@ def load_reisadviesmenu():
     backtomenu_button = Button(master = root, text = 'Terug naar het menu', bg=fg_color, fg=bg_color, font=("Helvetica", 10, "bold"), command=load_mainmenu)
     backtomenu_button.place(x=600,y=650)
 
-#Loading of initial screen.
+# Declaration of initial objects
+bg_color = "#FFCC20"
+fg_color = "#000066"
+
 root = Tk()
 root.title('Project Programming')
 root.geometry('{}x{}'.format(1280, 720))
 root.resizable(width=False, height=False)
-bg_color = "#FFCC20"
-fg_color = "#000066"
 root.configure(bg=bg_color)
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
 load_mainmenu()
 
-#Execute
 root.mainloop()
