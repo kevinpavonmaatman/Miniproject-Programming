@@ -33,9 +33,11 @@ def notification_label_text(possibility, label, fg_color):
     else:
         label['text'] = ''
 
-def remove_grid_slaves(parent):
+def destroy_slaves(parent):
     for slave in parent.grid_slaves():
         slave.grid_remove()
+    for slave in parent.place_slaves():
+        slave.destroy()
 
 def part_maker(parent, bg_color, fg_color, travel_part, column_number, part):
     part_frame = Frame(parent, bg=bg_color)

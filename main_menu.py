@@ -134,12 +134,12 @@ def possibilities_listbox_selection(event):
             travel_time_label['text'] = 'Reistijd: {}'.format(possibility['ActueleReisTijd'])
 
             if possibility['AantalOverstappen'] == '0':
-                remove_grid_slaves(ctr_mid_stops)
+                destroy_slaves(ctr_mid_stops)
                 too_many.place_forget()
                 part_maker(ctr_mid_stops, bg_color, fg_color, possibility['ReisDeel'], 0, None)
 
             else:
-                remove_grid_slaves(ctr_mid_stops)
+                destroy_slaves(ctr_mid_stops)
 
                 if len(possibility['ReisDeel']) > 4:
                     departure_arrival_time_label['text'] = ''
@@ -162,21 +162,7 @@ def possibilities_listbox_selection(event):
 
 def load_mainmenu():
 
-    #Loading global frames
-    global top_frame
-    global buttons_frame
-    global footer_frame
-
-    #Removal of previous frames and photo_bottom.
-    try:
-        top_frame.destroy()
-        center.destroy()
-        photo_bottom.destroy()
-        photo_top.destroy()
-        smalltop_text.destroy()
-    except:
-        pass
-
+    destroy_slaves(root)
 
     #Definition of Frames
     top_frame = Frame(root, width=200, height=50, pady=3, bg=bg_color)
@@ -215,13 +201,7 @@ def load_mainmenu():
 
 def load_reisinfomenu():
 
-    #Loading global variables
-    global top_frame
-    global buttons_frame
-    global footer_frame
-    global center
     global possibilities_listbox
-    global input_station_entry
     global departure_time
     global ridenumber
     global destination
@@ -231,14 +211,9 @@ def load_reisinfomenu():
     global route_text
     global travel_tip
     global comments
-    global photo_bottom
-    global photo_top
-    global smalltop_text
+    global input_station_entry
 
-    #Removal of previous frames.
-    buttons_frame.destroy()
-    top_frame.destroy()
-    footer_frame.destroy()
+    destroy_slaves(root)
 
     # create all of the main containers
     top_frame = Frame(root, pady = 3,bg=bg_color)
@@ -319,33 +294,22 @@ def load_reisinfomenu():
 
 def load_reisadviesmenu():
 
-    #Loading global variables
-    global top_frame
-    global buttons_frame
-    global footer_frame
-    global day_date_entry
-    global month_date_entry
-    global year_date_entry
-    global time_date_entry
-    global from_station_entry
-    global to_station_entry
-    global via_station_entry
-    global times_listbox
     global possibilities_listbox
+    global times_listbox
     global departure_arrival_time_label
     global travel_time_label
-    global notification_label
     global ctr_mid_stops
     global too_many
-    global center
-    global photo_bottom
-    global photo_top
-    global smalltop_text
+    global notification_label
+    global year_date_entry
+    global month_date_entry
+    global day_date_entry
+    global time_date_entry
+    global from_station_entry
+    global via_station_entry
+    global to_station_entry
 
-    #Removal of previous frames.
-    buttons_frame.destroy()
-    top_frame.destroy()
-    footer_frame.destroy()
+    destroy_slaves(root)
 
     # create all of the main containers
     top_frame = Frame(root, pady = 3, bg=bg_color)
