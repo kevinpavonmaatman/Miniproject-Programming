@@ -5,7 +5,7 @@ vertrektijden van een gekozen station en het kunnen opvragen van een reisadvies 
 ## Installatie
 Om het programma te gebruiken heb je de volgende onderdelen nodig:
 
-Een Windows OS waarop PyCharm Edu versie >=3.0 ge?nstalleerd is.
+Een Windows OS waarop PyCharm Edu versie >=4.0 geinstalleerd is.
 Python 3.6.2
 En de volgende modules
 - XMLtoDict
