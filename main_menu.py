@@ -160,19 +160,22 @@ def possibilities_listbox_selection(event):
 
             notification_label_text(possibility, notification_label, fg_color)
 
-def load_mainmenu(event):
+def load_mainmenu():
 
     #Loading global frames
     global top_frame
     global buttons_frame
     global footer_frame
 
-    #Removal of previous frames.
-    buttons_frame.destroy()
-    top_frame.destroy()
-    footer_frame.destroy()
-    center.destroy()
-    root.geometry('{}x{}'.format(800, 400))
+    #Removal of previous frames and photo_bottom.
+    try:
+        top_frame.destroy()
+        center.destroy()
+        photo_bottom.destroy()
+        photo_top.destroy()
+        smalltop_text.destroy()
+    except:
+        pass
 
 
     #Definition of Frames
@@ -186,39 +189,31 @@ def load_mainmenu(event):
     footer_frame.grid(row=2)
 
     #Information in top_frame:
-    title = Label(top_frame, text='NS Main Menu Interface')
-    title.configure(bg=bg_color, fg=fg_color, width = 40, height=1, font=("Helvetica", 25, "bold"))
-    img = PhotoImage(file="ns.png")
-    foto = Label(top_frame,image=img, bg=bg_color)
-    foto.image = (img)
-    welcometext = Label(top_frame, text='Welkom bij de NS Reisadvies applicatie \n Maak een keuze door te klikken op één van de onderstaande knoppen')
-    welcometext.configure(bg=bg_color, fg=fg_color, width = 100, height=2, font=("Helvetica", 10, "bold"))
+    title = Label(top_frame, text='Main Menu', bg=bg_color, fg=fg_color, width = 40, height=1, font=("Helvetica", 25, "bold"))
+    image = PhotoImage(file="ns.png")
+    photo = Label(top_frame,image=image, bg=bg_color)
+    photo.image = image
+    welcometext = Label(top_frame, text='Welkom bij de NS Reisapplicatie \n Maak een keuze door te klikken op één van de onderstaande knoppen', bg=bg_color, fg=fg_color, font=("Helvetica", 10, "bold"))
 
     #Position of objects in top_frame
-    title.grid(row=0)
-    foto.grid(row=1)
-    welcometext.grid(row=2)
+    title.grid(row=0, pady=50)
+    photo.grid(row=1)
+    welcometext.grid(row=2, pady=(50, 0))
 
     #Information in buttons_frame:
-    reisinfo_button = Button(master = buttons_frame, text = 'Reisinformatie', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"))
-    reisinfo_button.grid(row=0,column=0,padx=50)
-    reisadvies_button = Button(master = buttons_frame, text = 'Reisadvies', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"))
-    reisadvies_button.grid(row=0,column=1, padx=20)
+    reisinfo_button = Button(master = buttons_frame, text = 'Reisinformatie', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"), command=load_reisinfomenu)
+    reisinfo_button.grid(row=0 , column=0, padx=(0, 25))
+    reisadvies_button = Button(master = buttons_frame, text = 'Reisadvies', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"), command=load_reisadviesmenu)
+    reisadvies_button.grid(row=0,column=1,padx=(0, 25))
 
     #Information in footer_frame
     copyright_text = Label(footer_frame, text='Copyright © 2017. All rights reserved')
     copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=5, font=("Helvetica", 8, "bold"))
-    exit_button = Button(master = footer_frame, text = 'Afsluiten')
-    exit_button.configure(bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
+    exit_button = Button(master = footer_frame, text = 'Afsluiten', bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"), command=exit)
     copyright_text.grid(row=0)
     exit_button.grid(row=1)
 
-    #Button Bindings
-    reisinfo_button.bind("<Button-1>", load_reisinfomenu)
-    reisadvies_button.bind("<Button-1>", load_reisadviesmenu)
-    exit_button.bind("<Button-1>", exit)
-
-def load_reisinfomenu(event):
+def load_reisinfomenu():
 
     #Loading global variables
     global top_frame
@@ -236,13 +231,15 @@ def load_reisinfomenu(event):
     global route_text
     global travel_tip
     global comments
+    global photo_bottom
+    global photo_top
+    global smalltop_text
 
     #Removal of previous frames.
     buttons_frame.destroy()
     top_frame.destroy()
     footer_frame.destroy()
 
-    root.geometry('{}x{}'.format(1280, 720))
     # create all of the main containers
     top_frame = Frame(root, pady = 3,bg=bg_color)
     center = Frame(root, padx = 3, pady = 3, bg=fg_color)
@@ -305,26 +302,25 @@ def load_reisinfomenu(event):
     comments.place(x = 10, y = 170)
 
     #Position of NS Pictures, Text and Copyright
-    img = PhotoImage(file="ns_small.png")
-    foto_top = Label(root,image=img, bg=bg_color)
-    foto_bottom = Label(root,image=img, bg=bg_color, width=300, height=113)
-    foto_top.image = (img)
-    foto_top.place(x=700,y=10)
-    foto_bottom.image = (img)
-    foto_bottom.place(x=4,y=600)
+    image = PhotoImage(file="ns_small.png")
+    photo_top = Label(root,image=image, bg=bg_color)
+    photo_bottom = Label(root,image=image, bg=bg_color, width=300, height=113)
+    photo_top.image = image
+    photo_top.place(x=1090,y=5)
+    photo_bottom.image = image
+    photo_bottom.place(x=4,y=600)
     smalltop_text = Label(root, text='NS Stationsinformatie Interface')
     smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
-    smalltop_text.place(x=650,y=54)
+    smalltop_text.place(x=1040,y=49)
     copyright_text = Label(root, text='Copyright © 2017. All rights reserved')
     copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=1, font=("Helvetica", 8, "bold"))
     copyright_text.place(x=500,y=690)
 
     #Back to menu button:
-    backtomenu_button = Button(master = root, text = 'Terug naar het menu', bg=fg_color, fg=bg_color, font=("Helvetica", 10, "bold"))
+    backtomenu_button = Button(master = root, text = 'Terug naar het menu', bg=fg_color, fg=bg_color, font=("Helvetica", 10, "bold"), command=load_mainmenu)
     backtomenu_button.place(x=600,y=650)
-    backtomenu_button.bind("<Button-1>", load_mainmenu)
 
-def load_reisadviesmenu(event):
+def load_reisadviesmenu():
 
     #Loading global variables
     global top_frame
@@ -345,13 +341,14 @@ def load_reisadviesmenu(event):
     global ctr_mid_stops
     global too_many
     global center
+    global photo_bottom
+    global photo_top
+    global smalltop_text
 
     #Removal of previous frames.
     buttons_frame.destroy()
     top_frame.destroy()
     footer_frame.destroy()
-    root.geometry('{}x{}'.format(1280, 720))
-    root.resizable(width = False, height = False)
 
     # create all of the main containers
     top_frame = Frame(root, pady = 3, bg=bg_color)
@@ -366,21 +363,21 @@ def load_reisadviesmenu(event):
 
     #Position of NS Pictures, Text and Copyright
     #invoer_label = Label(top_frame, text='Vul uw gegevens in',fg=fg_color, bg=bg_color, font=("Helvetica", 10, "bold"),bd=10)
-    img = PhotoImage(file="ns_small.png")
-    foto_top = Label(root,image=img, bg=bg_color)
-    foto_top.image = (img)
-    foto_top.place(x=1090,y=5)
+    image = PhotoImage(file="ns_small.png")
+    photo_top = Label(root,image=image, bg=bg_color)
+    photo_top.image = image
+    photo_top.place(x=1090,y=5)
     smalltop_text = Label(root, text='NS Reisadvies Interface')
     smalltop_text.configure(bg=bg_color, fg=fg_color, width = 30, height=1, font=("Helvetica", 8, "bold"))
-    smalltop_text.place(x=1040,y=54)
-    foto_bottom = Label(root,image=img, bg=bg_color, width=160, height=115)
-    foto_bottom.image = (img)
-    foto_bottom.place(x=4,y=597)
+    smalltop_text.place(x=1040,y=49)
+    photo_bottom = Label(root,image=image, bg=bg_color, width=160, height=115)
+    photo_bottom.image = image
+    photo_bottom.place(x=4,y=597)
     copyright_text = Label(root, text='Copyright © 2017. All rights reserved')
     copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=1, font=("Helvetica", 8, "bold"))
     copyright_text.place(x=500,y=690)
 
-    # foto.grid(row=0, column=8, padx=50)
+    # photo.grid(row=0, column=8, padx=50)
     from_station_label = Label(top_frame, text='Beginstation:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
     via_station_label = Label(top_frame, text='Via (optioneel):', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
     to_station_label = Label(top_frame, text='Bestemming:', fg=fg_color, bg=bg_color, font=("Helvetica", 8, "bold"))
@@ -462,14 +459,13 @@ def load_reisadviesmenu(event):
     notification_label.place(x = 500, y = 10)
 
     #Back to menu button:
-    backtomenu_button = Button(master = root, text = 'Terug naar het menu', bg=fg_color, fg=bg_color, font=("Helvetica", 10, "bold"))
+    backtomenu_button = Button(master = root, text = 'Terug naar het menu', bg=fg_color, fg=bg_color, font=("Helvetica", 10, "bold"), command=load_mainmenu)
     backtomenu_button.place(x=600,y=650)
-    backtomenu_button.bind("<Button-1>", load_mainmenu)
 
 #Loading of initial screen.
 root = Tk()
 root.title('Project Programming')
-root.geometry('{}x{}'.format(800, 400))
+root.geometry('{}x{}'.format(1280, 720))
 root.resizable(width=False, height=False)
 bg_color = "#FFCC20"
 fg_color = "#000066"
@@ -477,47 +473,7 @@ root.configure(bg=bg_color)
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
-#Definition of Frames
-top_frame = Frame(root, width=200, height=50, pady=3, bg=bg_color)
-buttons_frame = Frame(root, width=200, height=50, bg=bg_color)
-footer_frame = Frame(root, width=200, height=50, bg=bg_color)
-
-#Position of Frames
-top_frame.grid(row=0)
-buttons_frame.grid(row=1)
-footer_frame.grid(row=2)
-
-#Information in top_frame:
-title = Label(top_frame, text='NS Main Menu Interface')
-title.configure(bg=bg_color, fg=fg_color, width = 40, height=1, font=("Helvetica", 25, "bold"))
-img = PhotoImage(file="ns.png")
-foto = Label(top_frame,image=img, bg=bg_color)
-foto.image = (img)
-welcometext = Label(top_frame, text='Welkom bij de NS Reisadvies applicatie \n Maak een keuze door te klikken op één van de onderstaande knoppen')
-welcometext.configure(bg=bg_color, fg=fg_color, width = 100, height=2, font=("Helvetica", 10, "bold"))
-
-#Position of objects in top_frame
-title.grid(row=0)
-foto.grid(row=1)
-welcometext.grid(row=2)
-
-#Information in buttons_frame:
-reisinfo_button = Button(master = buttons_frame, text = 'Reisinformatie', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"))
-reisinfo_button.grid(row=0,column=0,padx=50)
-reisadvies_button = Button(master = buttons_frame, text = 'Reisadvies', bg=fg_color, fg=bg_color, font=("Helvetica", 20, "bold"))
-reisadvies_button.grid(row=0,column=1, padx=20)
-
-# #Information in footer_frame
-copyright_text = Label(footer_frame, text='Copyright © 2017. All rights reserved')
-copyright_text.configure(bg=bg_color, fg=fg_color, width = 50, height=5, font=("Helvetica", 8, "bold"))
-copyright_text.grid(row=0)
-exit_button = Button(master = footer_frame, text = 'Afsluiten', bg=fg_color, fg=bg_color, font=("Helvetica", 8, "bold"))
-exit_button.grid(row=1)
-
-#Button Bindings
-reisinfo_button.bind("<Button-1>", load_reisinfomenu)
-reisadvies_button.bind("<Button-1>", load_reisadviesmenu)
-exit_button.bind("<Button-1>", exit)
+load_mainmenu()
 
 #Execute
 root.mainloop()
