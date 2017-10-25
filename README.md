@@ -2,7 +2,7 @@
 Dit is een Python programma gemaakt door Groep 3 - Klas: V1C. Deze programma heeft als doel het weergeven van
 vertrektijden van een gekozen station en het kunnen opvragen van een reisadvies (beide dankzij de NS API).
 
-##Installatie
+## Installatie
 Om het programma te gebruiken heb je de volgende onderdelen nodig:
 
 Een Windows OS waarop PyCharm Edu versie >=3.0 ge?nstalleerd is.
@@ -11,7 +11,7 @@ En de volgende modules
 - XMLtoDict
 - Requests
 
-##Gebruik
+## Gebruik
 
 1.	Als je het mapje opent van het miniproject krijg je vier bestanden te zien dit zijn: functions.py, mainmenu.py, ns.png en ns_small.png dit zijn de bestanden die nodig zijn om de applicatie goed uit te voeren.
 2.	Uit deze bestanden kies je mainmenu.py en deze open je.
