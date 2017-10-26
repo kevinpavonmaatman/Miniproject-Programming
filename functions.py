@@ -13,6 +13,8 @@ def information_to_dict(api_paramaters):
 
 
 def notification_label_text(possibility, label, fg_color):
+    """"Checks if there is a 'melding' in the travel possibility and if true, inserts the melding into the notification_label. If it's false it sets the notification_label's text value to empty ('')"""
+
     if 'Melding' in possibility:
         if 'Ernstig' in possibility['Melding']:
             if possibility['Melding']['Ernstig'] == 'true':
@@ -34,12 +36,16 @@ def notification_label_text(possibility, label, fg_color):
         label['text'] = ''
 
 def destroy_slaves(parent):
+    """"Destroys the slaves of a given parent."""
+
     for slave in parent.grid_slaves():
         slave.grid_remove()
     for slave in parent.place_slaves():
         slave.destroy()
 
 def part_maker(parent, bg_color, fg_color, travel_part, column_number, part):
+    """"Generates parts and inserts travel information per part in a travel recommendation."""
+
     part_frame = Frame(parent, bg=bg_color)
     part_frame.grid(row=0, column=column_number, sticky=N)
 
@@ -78,6 +84,8 @@ def part_maker(parent, bg_color, fg_color, travel_part, column_number, part):
         stop_label.pack(anchor=W)
 
 def times(time, day, month, year):
+    """"Inserts current times into given labels."""
+
     import datetime as dt
     current_time = dt.datetime.today()
     time.insert(0, current_time.strftime('%H:%M'))
