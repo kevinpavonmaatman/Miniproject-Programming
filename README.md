@@ -1,5 +1,5 @@
 # Miniproject-Programming
-Dit is een Python programma gemaakt door Groep 3 - Klas: V1C. Deze programma heeft als doel het weergeven van
+Dit is een Python programma gemaakt door Groep 3 - Klas: V1C. Deze applicatie heeft als doel het weergeven van
 vertrektijden van een gekozen station en het kunnen opvragen van een reisadvies (beide dankzij de NS API).
 
 ## Installatie
