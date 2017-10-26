@@ -384,7 +384,7 @@ def load_reisadviesmenu():
     departure_arrival_time_label = Label(master=ctr_mid, bg=bg_color, fg=fg_color)
     travel_time_label = Label(master=ctr_mid, bg=bg_color, fg=fg_color)
     notification_label = Label(master=ctr_mid, bg=bg_color, fg=fg_color)
-    too_many = Label(ctr_mid, text='Helaas worden meer dan 4 reisdelen niet ondersteund door deze applicatie.', bg=bg_color, fg=fg_color, font=('Helvetica', 18))
+    too_many = Label(ctr_mid, text='Helaas worden meer dan 3 overstappen niet ondersteund door deze applicatie.', bg=bg_color, fg=fg_color, font=('Helvetica', 18))
 
     # Layout of widgets ctr_mid
     ctr_mid_travel_part.pack(anchor = W, padx = (10, 0), pady = (100, 0))
